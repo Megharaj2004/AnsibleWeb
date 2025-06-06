@@ -19,22 +19,22 @@ maven 'maven'
             }
         }
 
-        stage('Test') {
-            steps {
-                sh 'mvn test'  // Run unit tests
-            }
-        }
+        stage('archive'){
+      steps{
+        archiveArtifacts artifacts:'target/*.war', fingerprint: true
+      }
+    }
+    stage('deploy'){
+      steps{
+        sh 'mvn clean package'
+        sh 'sudo ansible-playbook ansible/deploy.yml -i ansible/hosts.ini'
+    }
+  }
 
         
         
        
-        stage('Run Application') {
-            steps {
-                // Start the JAR application
-                sh 'mvn exec:java -Dexec.mainClass=com.example.App'
-
-            }
-        }
+        
 
         
     }
