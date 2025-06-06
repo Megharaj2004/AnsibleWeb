@@ -27,7 +27,7 @@ maven 'maven'
     stage('deploy'){
       steps{
         sh 'mvn clean package'
-        sh 'sudo ansible-playbook ansible/deploy.yml -i ansible/hosts.ini'
+        sh 'sudo ansible-playbook ansible/playbook.yml -i ansible/hosts.ini'
     }
   }
 
